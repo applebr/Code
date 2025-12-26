@@ -3,7 +3,25 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    /* Prevent horizontal scroll and handle mobile height */
+    @apply h-full overflow-hidden;
+  }
+
   body {
-    @apply text-text-main bg-surface-50 font-sans dark:bg-gray-950 dark:text-gray-100;
+    /* Use dvh for dynamic viewport height on mobile */
+    @apply h-full min-h-[100dvh] overflow-y-auto overflow-x-hidden text-text-main bg-surface-50 font-sans dark:bg-gray-950 dark:text-gray-100;
+    /* iOS smooth scrolling */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 }

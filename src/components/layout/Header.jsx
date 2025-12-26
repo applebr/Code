@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 
 export function Header({ className }) {
   return (
-    <header className={cn("sticky top-0 z-20 bg-white/95 backdrop-blur-sm border-b border-gray-100 px-4 py-3 dark:bg-gray-950/95 dark:border-gray-800", className)}>
+    <header className={cn("sticky top-0 z-20 bg-white/95 backdrop-blur-sm border-b border-gray-100 px-4 py-3 pt-safe-top dark:bg-gray-950/95 dark:border-gray-800", className)}>
       <div className="flex items-center justify-between mb-3">
         <h1 className="text-xl font-bold tracking-tight text-primary">COUPONHUB</h1>
         <button className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
