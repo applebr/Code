@@ -13,7 +13,7 @@ export function Home() {
   const [activeTab, setActiveTab] = useState('home');
   const [activeCategory, setActiveCategory] = useState("전체");
   const [games, setGames] = useState(GAMES);
-  const [selectedGame, setSelectedGame] = useState(null);
+  const [selectedGameId, setSelectedGameId] = useState(null);
   const [isSubmissionOpen, setIsSubmissionOpen] = useState(false);
   const [toast, setToast] = useState(null); // { message, type }
 
@@ -39,12 +39,14 @@ export function Home() {
     ? games
     : games.filter(g => g.tags.includes(activeCategory));
 
+  const activeGame = selectedGameId ? games.find(g => g.id === selectedGameId) : null;
+
   return (
-    <div className="min-h-screen bg-surface-50 pb-20 font-sans">
+    <div className="min-h-screen bg-surface-50 pb-20 font-sans dark:bg-gray-950">
       {/* Home Content */}
       <Header />
 
-      <div className="sticky top-[113px] z-10 bg-surface-50/95 backdrop-blur-sm py-2 px-4 border-b border-gray-100 overflow-x-auto no-scrollbar">
+      <div className="sticky top-[113px] z-10 bg-surface-50/95 backdrop-blur-sm py-2 px-4 border-b border-gray-100 overflow-x-auto no-scrollbar dark:bg-gray-950/95 dark:border-gray-800">
         <div className="flex gap-2 min-w-max">
           {CATEGORIES.map(cat => (
             <Chip
@@ -63,7 +65,7 @@ export function Home() {
           <GameCard
             key={game.id}
             game={game}
-            onClick={() => setSelectedGame(game)}
+            onClick={() => setSelectedGameId(game.id)}
             onToggleFollow={handleToggleFollow}
           />
         ))}
@@ -86,11 +88,11 @@ export function Home() {
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Modals & Overlays */}
-      {selectedGame && (
+      {activeGame && (
         <GameDetail
-          game={selectedGame}
-          onClose={() => setSelectedGame(null)}
-          onFollow={() => handleToggleFollow(selectedGame.id)}
+          game={activeGame}
+          onClose={() => setSelectedGameId(null)}
+          onFollow={() => handleToggleFollow(activeGame.id)}
           showToast={showToast}
         />
       )}

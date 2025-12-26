@@ -18,19 +18,23 @@ export function CouponCard({ coupon, onCopy, onToggleUsed }) {
   return (
     <div className={cn(
       "relative bg-white rounded-xl border transition-all duration-300 overflow-hidden",
-      isUsed ? "bg-gray-50 border-gray-200" : "border-blue-100 shadow-sm",
+      isUsed
+        ? "bg-gray-50 border-gray-200 dark:bg-gray-900/50 dark:border-gray-800"
+        : "border-blue-100 shadow-sm dark:bg-gray-900 dark:border-blue-900/50",
       isExpired && "opacity-60 grayscale"
     )}>
       {/* Decorative dashed line for ticket look */}
-      <div className="absolute top-1/2 -left-1.5 w-3 h-3 bg-surface-50 rounded-full border border-gray-100" />
-      <div className="absolute top-1/2 -right-1.5 w-3 h-3 bg-surface-50 rounded-full border border-gray-100" />
+      <div className="absolute top-1/2 -left-1.5 w-3 h-3 bg-surface-50 rounded-full border border-gray-100 dark:bg-gray-950 dark:border-gray-800" />
+      <div className="absolute top-1/2 -right-1.5 w-3 h-3 bg-surface-50 rounded-full border border-gray-100 dark:bg-gray-950 dark:border-gray-800" />
 
       <div className="p-4 space-y-3">
         {/* Top: Code & Copy */}
         <div className="flex items-center justify-between gap-3">
           <div className={cn(
             "font-mono text-xl font-bold tracking-wider",
-            isUsed || isExpired ? "text-gray-400 line-through decoration-2" : "text-primary"
+            isUsed || isExpired
+              ? "text-gray-400 line-through decoration-2 dark:text-gray-600"
+              : "text-primary dark:text-blue-400"
           )}>
             {coupon.code}
           </div>
@@ -51,19 +55,19 @@ export function CouponCard({ coupon, onCopy, onToggleUsed }) {
         {/* Middle: Reward */}
         <div className={cn(
           "text-sm font-medium",
-          isUsed || isExpired ? "text-gray-400" : "text-text-main"
+          isUsed || isExpired ? "text-gray-400 dark:text-gray-600" : "text-text-main dark:text-gray-200"
         )}>
           {coupon.reward}
         </div>
 
         {/* Bottom: Actions */}
-        <div className="pt-3 border-t border-dashed border-gray-200 flex items-center justify-between">
+        <div className="pt-3 border-t border-dashed border-gray-200 dark:border-gray-800 flex items-center justify-between">
           <button
             onClick={() => onToggleUsed(coupon.id)}
             disabled={isExpired}
             className={cn(
               "flex items-center gap-1.5 text-xs font-medium transition-colors p-1.5 -ml-1.5 rounded",
-              isUsed ? "text-success" : "text-gray-400 hover:bg-gray-50",
+              isUsed ? "text-success" : "text-gray-400 hover:bg-gray-50 dark:text-gray-500 dark:hover:bg-gray-800",
               isExpired && "cursor-not-allowed"
             )}
           >
@@ -71,7 +75,7 @@ export function CouponCard({ coupon, onCopy, onToggleUsed }) {
             {isUsed ? "사용 완료" : "사용 완료 체크"}
           </button>
 
-          <button className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-alert p-1.5 -mr-1.5 rounded hover:bg-red-50 transition-colors">
+          <button className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-alert p-1.5 -mr-1.5 rounded hover:bg-red-50 transition-colors dark:text-gray-500 dark:hover:bg-red-900/20">
             <Flag className="w-4 h-4" />
             신고
           </button>

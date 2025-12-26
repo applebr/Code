@@ -10,7 +10,7 @@ export function BottomNav({ activeTab, onTabChange }) {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 h-[65px] bg-white border-t border-gray-200 z-30 flex items-center justify-around pb-safe">
+    <nav className="fixed bottom-0 left-0 right-0 h-[65px] bg-white border-t border-gray-200 z-30 flex items-center justify-around pb-safe dark:bg-gray-950 dark:border-gray-800">
       {tabs.map((tab) => {
         const isActive = activeTab === tab.id;
         const Icon = tab.icon;
@@ -24,13 +24,13 @@ export function BottomNav({ activeTab, onTabChange }) {
             <Icon
               className={cn(
                 "w-6 h-6 transition-colors",
-                isActive ? "text-primary fill-primary/20" : "text-gray-400 stroke-[1.5px]"
+                isActive ? "text-primary fill-primary/20" : "text-gray-400 stroke-[1.5px] dark:text-gray-500"
               )}
             />
             <span
               className={cn(
                 "text-[10px] font-medium transition-colors",
-                isActive ? "text-primary" : "text-gray-400"
+                isActive ? "text-primary" : "text-gray-400 dark:text-gray-500"
               )}
             >
               {tab.label}
