@@ -1,16 +1,78 @@
-# React + Vite
+# Game Coupon Hub (게임 쿠폰 허브)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+모바일 게임 쿠폰 정보를 한곳에서 확인하고 관리할 수 있는 모바일 퍼스트 웹 애플리케이션입니다.
 
-Currently, two official plugins are available:
+## 🚀 주요 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. 쿠폰 탐색 및 관리
+- **게임 목록**: 인기 게임과 신규 게임의 쿠폰 정보를 한눈에 볼 수 있습니다.
+- **카테고리 필터**: RPG, 전략, 스포츠 등 장르별로 게임을 찾을 수 있습니다.
+- **쿠폰 상세**:
+  - **복사하기**: 터치 한 번으로 쿠폰 코드를 복사합니다.
+  - **사용 완료 체크**: 사용한 쿠폰을 체크하여 중복 사용을 방지합니다.
+  - **만료된 쿠폰**: 만료된 쿠폰은 별도로 분류되어 관리됩니다.
 
-## React Compiler
+### 2. 사용자 경험 (UX)
+- **다크 모드**: 기기 설정에 따라 자동으로 다크 모드가 적용됩니다.
+- **PWA 지원**: 홈 화면에 추가하여 네이티브 앱처럼 사용할 수 있습니다.
+- **반응형 웹**: 모바일 환경에 최적화된 레이아웃과 제스처를 지원합니다.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 3. 계정 및 설정
+- **로그인**: 카카오, Google, 이메일 로그인을 지원합니다 (현재는 데모 모드로 동작).
+- **관심 게임**: 자주 하는 게임을 팔로우하여 별도로 관리할 수 있습니다.
+- **제보하기**: 새로운 쿠폰 정보를 제보할 수 있습니다.
 
-## Expanding the ESLint configuration
+## 🛠️ 설치 및 실행 방법
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+이 프로젝트는 Node.js 환경에서 실행됩니다.
+
+### 1. 저장소 클론 및 이동
+```bash
+git clone <repository-url>
+cd app
+```
+
+### 2. 패키지 설치
+```bash
+npm install
+```
+
+### 3. 개발 서버 실행
+```bash
+npm run dev
+```
+실행 후 브라우저에서 `http://localhost:5173` (또는 터미널에 표시된 주소)로 접속하세요.
+
+### 4. 프로덕션 빌드
+```bash
+npm run build
+```
+
+## 📱 모바일에서 사용하기 (PWA)
+
+1. 모바일 브라우저(Chrome, Safari 등)로 접속합니다.
+2. 브라우저 메뉴에서 **"홈 화면에 추가"**를 선택합니다.
+3. 홈 화면에 생성된 아이콘을 통해 앱처럼 실행할 수 있습니다.
+
+## 💻 기술 스택
+
+- **Framework**: React + Vite
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Language**: JavaScript
+
+## 📂 프로젝트 구조
+
+```
+src/
+├── components/
+│   ├── features/    # 주요 기능 컴포넌트 (게임 카드, 쿠폰, 로그인 등)
+│   ├── layout/      # 레이아웃 컴포넌트 (헤더, 하단 탭)
+│   ├── ui/          # 공통 UI 컴포넌트 (버튼, 칩, 토스트)
+│   └── icons/       # 아이콘 컴포넌트
+├── contexts/        # 전역 상태 관리 (Auth)
+├── data/            # 목업 데이터
+├── hooks/           # 커스텀 훅
+├── lib/             # 유틸리티 함수
+└── pages/           # 페이지 컴포넌트
+```
