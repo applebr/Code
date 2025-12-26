@@ -6,18 +6,30 @@ import { GameCard } from '../components/features/GameCard';
 import { CATEGORIES, GAMES } from '../data/mockData';
 import { GameDetail } from '../components/features/GameDetail';
 import { SubmissionModal } from '../components/features/SubmissionModal';
+import { LoginModal } from '../components/features/LoginModal';
+import { MenuDrawer } from '../components/features/MenuDrawer';
 import { Toast } from '../components/ui/Toast';
 import { Plus } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
 
 export function Home() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('home');
   const [activeCategory, setActiveCategory] = useState("전체");
   const [games, setGames] = useState(GAMES);
   const [selectedGameId, setSelectedGameId] = useState(null);
   const [isSubmissionOpen, setIsSubmissionOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [toast, setToast] = useState(null); // { message, type }
 
   const handleToggleFollow = (id) => {
+    if (!user) {
+      showToast("로그인이 필요한 기능입니다.", "info");
+      setIsLoginOpen(true);
+      return;
+    }
+
     setGames(prev => prev.map(game => {
       if (game.id === id) {
         const newState = !game.isFollowed;
@@ -29,6 +41,14 @@ export function Home() {
       }
       return game;
     }));
+  };
+
+  const handleTabChange = (tabId) => {
+    if (tabId === 'menu') {
+      setIsMenuOpen(true);
+    } else {
+      setActiveTab(tabId);
+    }
   };
 
   const showToast = (message, type = 'success') => {
@@ -44,7 +64,7 @@ export function Home() {
   return (
     <div className="min-h-screen bg-surface-50 pb-20 font-sans dark:bg-gray-950">
       {/* Home Content */}
-      <Header />
+      <Header onLoginClick={() => setIsLoginOpen(true)} />
 
       <div className="sticky top-[113px] z-10 bg-surface-50/95 backdrop-blur-sm py-2 px-4 border-b border-gray-100 overflow-x-auto no-scrollbar dark:bg-gray-950/95 dark:border-gray-800">
         <div className="flex gap-2 min-w-max">
@@ -85,7 +105,7 @@ export function Home() {
         <Plus className="w-7 h-7" />
       </button>
 
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
 
       {/* Modals & Overlays */}
       {activeGame && (
@@ -103,6 +123,19 @@ export function Home() {
           showToast={showToast}
         />
       )}
+
+      {isLoginOpen && (
+        <LoginModal
+          onClose={() => setIsLoginOpen(false)}
+          showToast={showToast}
+        />
+      )}
+
+      <MenuDrawer
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        onLoginClick={() => { setIsMenuOpen(false); setIsLoginOpen(true); }}
+      />
 
       {toast && (
         <Toast
